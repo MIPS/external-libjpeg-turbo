@@ -63,8 +63,20 @@ LOCAL_SRC_FILES_x86_64 += \
 LOCAL_ASFLAGS_x86_64 += -D__x86_64__ -DPIC -DELF
 LOCAL_C_INCLUDES_x86_64 += $(LOCAL_PATH)/simd
 
-LOCAL_SRC_FILES_mips += jsimd_none.c
-LOCAL_SRC_FILES_mips64 += jsimd_none.c
+ifeq ($(ARCH_MIPS_HAS_MSA),true)
+  LOCAL_SRC_FILES_mips += simd/jsimd_msa.c simd/jfdct_msa.c simd/jidct_msa.c \
+        simd/jdsample_msa.c simd/jdcolext_msa.c simd/jccolext_msa.c \
+        simd/jquanti_msa.c simd/jdmrgext_msa.c simd/jcsample_msa.c \
+        simd/jcgray_msa.c simd/jdcol565_msa.c
+  LOCAL_SRC_FILES_mips64 += simd/jsimd_msa.c simd/jfdct_msa.c simd/jidct_msa.c \
+        simd/jdsample_msa.c simd/jdcolext_msa.c simd/jccolext_msa.c \
+        simd/jquanti_msa.c simd/jdmrgext_msa.c simd/jcsample_msa.c \
+        simd/jcgray_msa.c simd/jdcol565_msa.c
+else
+  LOCAL_SRC_FILES_mips += jsimd_none.c
+  LOCAL_SRC_FILES_mips64 += jsimd_none.c
+endif
+
 
 LOCAL_CFLAGS += -O3 -fstrict-aliasing
 LOCAL_CFLAGS += -Wno-unused-parameter
