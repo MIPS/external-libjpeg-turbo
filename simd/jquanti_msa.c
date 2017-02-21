@@ -39,7 +39,7 @@ conv_u8_s16_msa (JSAMPARRAY in_ptr, DCTELEM *out_ptr, JDIMENSION in_stride)
   v16u8 val0, val1, val2, val3, val4, val5, val6, val7;
   v16u8 tmp0, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7;
   v8i16 dst0, dst1, dst2, dst3, dst4, dst5, dst6, dst7;
-  v16u8 reg_128 = (v16u8) __msa_ldi_b(CENTERSAMPLE);
+  v16u8 reg_128 = (v16u8) __msa_fill_b(CENTERSAMPLE);
 
   val0 = LD_UB(in_ptr[0] + in_stride);
   val1 = LD_UB(in_ptr[1] + in_stride);

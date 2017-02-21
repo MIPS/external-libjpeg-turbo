@@ -160,7 +160,7 @@ yuv_rgb_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   v16u8 mask_rgb1 = {11, 21, 12, 13, 22, 14, 15, 23, 0, 1, 24, 2, 3, 25, 4, 5};
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 tmp0, tmp1, out0, out1, out2, input_y = {0};
-  v16i8 input_cb, input_cr, out_rgb0, out_rgb1, const_128 = __msa_ldi_b(128);
+  v16i8 input_cb, input_cr, out_rgb0, out_rgb1, const_128 = __msa_fill_b(128);
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
   v4i32 cb_w0, cb_w1, cb_w2, cb_w3, cr_w0, cr_w1, cr_w2, cr_w3, zero = {0};
   v16i8  out_r0, out_g0, out_b0;
@@ -272,7 +272,7 @@ yuv_bgr_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   v16u8 mask_rgb1 = {11, 21, 12, 13, 22, 14, 15, 23, 0, 1, 24, 2, 3, 25, 4, 5};
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 tmp0, tmp1, out0, out1, out2, input_y = {0};
-  v16i8 input_cb, input_cr, out_rgb0, out_rgb1, const_128 = __msa_ldi_b(128);
+  v16i8 input_cb, input_cr, out_rgb0, out_rgb1, const_128 = __msa_fill_b(128);
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
   v4i32 cb_w0, cb_w1, cb_w2, cb_w3, cr_w0, cr_w1, cr_w2, cr_w3, zero = {0};
   v16i8  out_r0, out_g0, out_b0;
@@ -380,8 +380,8 @@ yuv_rgba_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   int y, cb, cr;
   unsigned int col, num_cols_mul_16 = out_width >> 4;
   unsigned int remaining_wd = out_width & 0xF;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 const_128 = __msa_fill_b(128);
   v16u8 out0, out1, out2, out3, input_y = {0};
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_ba0, out_ba1;
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
@@ -483,8 +483,8 @@ yuv_bgra_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   int y, cb, cr;
   unsigned int col, num_cols_mul_16 = out_width >> 4;
   unsigned int remaining_wd = out_width & 0xF;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 const_128 = __msa_fill_b(128);
   v16u8 out0, out1, out2, out3, input_y = {0};
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_ra0, out_ra1;
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
@@ -585,8 +585,8 @@ yuv_argb_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   int y, cb, cr;
   unsigned int col, num_cols_mul_16 = out_width >> 4;
   unsigned int remaining_wd = out_width & 0xF;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 const_128 = __msa_fill_b(128);
   v16u8 out0, out1, out2, out3, input_y = {0};
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_ar0, out_ar1;
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
@@ -687,8 +687,8 @@ yuv_abgr_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   int y, cb, cr;
   unsigned int col, num_cols_mul_16 = out_width >> 4;
   unsigned int remaining_wd = out_width & 0xF;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 const_128 = __msa_fill_b(128);
   v16u8 out0, out1, out2, out3, input_y = {0};
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_ab0, out_ab1;
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
