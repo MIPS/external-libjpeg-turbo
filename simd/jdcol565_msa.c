@@ -149,7 +149,7 @@ yuv_rgb565_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
   JDIMENSION col, num_cols_mul_16 = out_width >> 4;
   JDIMENSION remaining_wd = out_width & 0xF;
   v16u8 out0, out1, input_y = {0};
-  v16i8 input_cb, input_cr, const_128 = __msa_ldi_b(128);
+  v16i8 input_cb, input_cr, const_128 = __msa_fill_b(128);
   v8i16 out_r0, out_r1, out_g0, out_g1, out_b0, out_b1;
   v8i16 y_h0, y_h1, cb_h0, cb_h1, cr_h0, cr_h1;
   v4i32 cb_w0, cb_w1, cb_w2, cb_w3, cr_w0, cr_w1, cr_w2, cr_w3, zero = {0};
@@ -180,12 +180,12 @@ yuv_rgb565_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
     UNPCK_SH_SW(cb_h1, cb_w2, cb_w3);
     CALC_B4_FRM_YUV(y_h0, y_h1, cb_w0, cb_w1, cb_w2, cb_w3, out_b0, out_b1);
 
-    out_r0 = MSA_SLLI_B(out_r0, 8);
-    out_r1 = MSA_SLLI_B(out_r1, 8);
-    out_g0 = MSA_SLLI_B(out_g0, 3);
-    out_g1 = MSA_SLLI_B(out_g1, 3);
-    out_b0 = MSA_SRAI_B(out_b0, 3);
-    out_b1 = MSA_SRAI_B(out_b1, 3);
+    out_r0 = MSA_SLLI_H(out_r0, 8);
+    out_r1 = MSA_SLLI_H(out_r1, 8);
+    out_g0 = MSA_SLLI_H(out_g0, 3);
+    out_g1 = MSA_SLLI_H(out_g1, 3);
+    out_b0 = MSA_SRAI_H(out_b0, 3);
+    out_b1 = MSA_SRAI_H(out_b1, 3);
 
     out0 = (v16u8) __msa_binsli_h((v8u16) out_g0, (v8u16) out_r0, 4);
     out1 = (v16u8) __msa_binsli_h((v8u16) out_g1, (v8u16) out_r1, 4);
@@ -225,9 +225,9 @@ yuv_rgb565_convert_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb, JSAMPROW p_in_cr,
     CALC_G2_FRM_YUV(y_h0, cb_h0, cr_h0, out_g0);
     CALC_B2_FRM_YUV(y_h0, cb_w0, cb_w1, out_b0);
 
-    out_r0 = MSA_SLLI_B(out_r0, 8);
-    out_g0 = MSA_SLLI_B(out_g0, 3);
-    out_b0 = MSA_SRAI_B(out_b0, 3);
+    out_r0 = MSA_SLLI_H(out_r0, 8);
+    out_g0 = MSA_SLLI_H(out_g0, 3);
+    out_b0 = MSA_SRAI_H(out_b0, 3);
 
     out0 = (v16u8) __msa_binsli_h((v8u16) out_g0, (v8u16) out_r0, 4);
     out0 = (v16u8) __msa_binsli_h((v8u16) out_b0, (v8u16) out0, 10);

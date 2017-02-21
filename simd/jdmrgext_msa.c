@@ -298,7 +298,7 @@ yuv_rgb_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   v16u8 mask_rgb1 = {11, 21, 12, 13, 22, 14, 15, 23, 0, 1, 24, 2, 3, 25, 4, 5};
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 out0, out1, out2, out3, out4, out5, input_y0 = {0}, input_y1;
-  v16i8 tmp0, tmp1, const_128 = __msa_ldi_b(128);
+  v16i8 tmp0, tmp1, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v8i16 y_h0, y_h1, y_h2, y_h3, cb_h0, cb_h1, cr_h0, cr_h1;
@@ -508,7 +508,7 @@ yuv_bgr_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   v16u8 mask_rgb1 = {11, 21, 12, 13, 22, 14, 15, 23, 0, 1, 24, 2, 3, 25, 4, 5};
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 out0, out1, out2, out3, out4, out5, input_y0 = {0}, input_y1;
-  v16i8 tmp0, tmp1, const_128 = __msa_ldi_b(128);
+  v16i8 tmp0, tmp1, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v8i16 y_h0, y_h1, y_h2, y_h3, cb_h0, cb_h1, cr_h0, cr_h1;
@@ -712,8 +712,8 @@ yuv_rgba_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   int y, cb, cr, cred, cgreen, cblue;
   JDIMENSION col, num_cols_mul_32 = out_width >> 5;
   JDIMENSION remaining_wd = out_width & 0x1E;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
@@ -905,8 +905,8 @@ yuv_bgra_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   int y, cb, cr, cred, cgreen, cblue;
   JDIMENSION col, num_cols_mul_32 = out_width >> 5;
   JDIMENSION remaining_wd = out_width & 0x1E;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
@@ -1098,8 +1098,8 @@ yuv_argb_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   int y, cb, cr, cred, cgreen, cblue;
   JDIMENSION col, num_cols_mul_32 = out_width >> 5;
   JDIMENSION remaining_wd = out_width & 0x1E;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
@@ -1292,8 +1292,8 @@ yuv_abgr_upsample_h2v1_msa (JSAMPROW p_in_y, JSAMPROW p_in_cb,
   int y, cb, cr, cred, cgreen, cblue;
   JDIMENSION col, num_cols_mul_32 = out_width >> 5;
   JDIMENSION remaining_wd = out_width & 0x1E;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 tmp0, tmp1, tmp2, tmp3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, out_rgb0, out_rgb1, out_rgb2, out_rgb3;
   v16i8  out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
@@ -1492,7 +1492,7 @@ yuv_rgb_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 out0, out1, out2, out3, out4, out5;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
@@ -1787,7 +1787,7 @@ yuv_bgr_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   v16u8 mask_rgb2 = {26, 6, 7, 27, 8, 9, 28, 10, 11, 29, 12, 13, 30, 14, 15, 31};
   v16u8 out0, out1, out2, out3, out4, out5;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
@@ -2079,8 +2079,8 @@ yuv_rgba_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   JDIMENSION remaining_wd = out_width & 0x1E;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
@@ -2342,8 +2342,8 @@ yuv_bgra_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   JDIMENSION remaining_wd = out_width & 0x1E;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
@@ -2605,8 +2605,8 @@ yuv_argb_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   JDIMENSION remaining_wd = out_width & 0x1E;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
@@ -2868,8 +2868,8 @@ yuv_abgr_upsample_h2v2_msa (JSAMPROW p_in_y0, JSAMPROW p_in_y1,
   JDIMENSION remaining_wd = out_width & 0x1E;
   v16u8 out0, out1, out2, out3, out4, out5, out6, out7;
   v16u8 input_y0 = {0}, input_y1 = {0}, input_y2, input_y3;
-  v16i8 alpha = __msa_ldi_b(0xFF);
-  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_ldi_b(128);
+  v16i8 alpha = __msa_ldi_b(-1);
+  v16i8 out_rgb0, out_rgb1, out_rgb2, out_rgb3, const_128 = __msa_fill_b(128);
   v16i8 input_cb, input_cr, tmp0, tmp1, tmp2, tmp3;
   v16i8 out_r0, out_g0, out_b0, out_r1, out_g1, out_b1;
   v16i8 out_r2, out_g2, out_b2, out_r3, out_g3, out_b3;
