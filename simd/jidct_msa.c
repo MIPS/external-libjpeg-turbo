@@ -755,6 +755,7 @@ idct_2x2_msa (JCOEFPTR quantptr, JCOEFPTR block, JSAMPARRAY output_buf)
                   -FIX_1_272758580};
   v4i32 const1 = {FIX_0_850430095, -FIX_0_720959822, FIX_0_850430095,
                   -FIX_0_720959822};
+  v8i16 cnst128 = __msa_fill_h(128);
 
   /* Pass 1: process columns from input, store into work array. */
 
@@ -837,7 +838,7 @@ idct_2x2_msa (JCOEFPTR quantptr, JCOEFPTR block, JSAMPARRAY output_buf)
   SRARI_W2_SW(dst0_r, dst1_r, CONST_BITS + PASS1_BITS + 3 + 2);
 
   res = (v8i16) __msa_pckev_d((v2i64) dst1_r, (v2i64) dst0_r);
-  res = MSA_ADDVI_H(res, 128);
+  res += cnst128;
   res = CLIP_SH_0_255(res);
 
   out0 = __msa_copy_u_b((v16i8) res, 0);
